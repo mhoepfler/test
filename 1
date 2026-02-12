@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Mein erster PHP-Rechner</title>
+    <style>
+        body { font-family: sans-serif; margin: 50px; }
+        .rechner-box { border: 1px solid #ccc; padding: 20px; width: 300px; border-radius: 8px; }
+        input, select { margin-bottom: 10px; width: 100%; padding: 8px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="rechner-box">
+    <h2>Taschenrechner</h2>
+
+    <form method="post">
+        <input type="number" name="zahl1" placeholder="Zahl 1" step="any" required>
+
+        <select name="operation">
+            <option value="plus">+</option>
+            <option value="minus">-</option>
+            <option value="mal"></option>
+            <option value="durch">/</option>
+        </select>
+
+        <input type="number" name="zahl2" placeholder="Zahl 2" step="any" required>
+
+        <button type="submit" name="berechnen">Berechnen</button>
+    </form>
+
+    <?php
+    // Wir prüfen, ob der Button gedrückt wurde
+    if (isset($_POST['berechnen'])) {
+        $z1 = $_POST['zahl1'];
+        $z2 = $_POST['zahl2'];
+        $op = $_POST['operation'];
+        $ergebnis = 0;
+
+        // Logik für die Berechnung
+        switch ($op) {
+            case 'plus':  $ergebnis = $z1 + $z2; break;
+            case 'minus': $ergebnis = $z1 - $z2; break;
+            case 'mal':   $ergebnis = $z1 $z2; break;
+            case 'durch': 
+                if ($z2 != 0) {
+                    $ergebnis = $z1 / $z2;
+                } else {
+                    $ergebnis = "Fehler: Division durch 0!";
+                }
+                break;
+        }
+
+        echo "<h3>Ergebnis: $ergebnis</h3>";
+    }
+    ?>
+</div>
+
+</body>
+</html>
